@@ -11,4 +11,4 @@ BIGartm для анализа новостей
 Description
 ===========
 
-Модель в файле `main.ipynb`. Перед запуском обязательно загрузите данные на colab.
+Модель в файле `main.ipynb`. Перед запуском обязательно загрузите данные на colab. Все данные доступны по `ссылке <https://drive.google.com/drive/folders/14S9rCNynzLtT5jQnKae3X0Xb8ZbCAhsZ?usp=sharing>`_.
