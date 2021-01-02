@@ -1,0 +1,11 @@
+name: LogisticRegression
+
+docker_env:
+   image: ubuntu:20.04
+   
+entry_points:
+  main:
+    parameters:
+      C: {type: float, default: 1.0}
+      penalty: {type: str, default: "l1"}
+    command: "python3 train.py --C {C} --penalty {penalty}"
