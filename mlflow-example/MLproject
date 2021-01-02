@@ -1,7 +1,8 @@
 name: example
 
 docker_env:
-   image: ap-res-docker-train
+  image: ap-res-docker-train
+  environment: ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION"]
    
 entry_points:
   main:
