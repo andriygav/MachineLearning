@@ -1,7 +1,7 @@
-name: LogisticRegression
+name: example
 
 docker_env:
-   image: ubuntu:20.04
+   image: ap-res-docker-train
    
 entry_points:
   main:
