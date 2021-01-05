@@ -118,6 +118,9 @@ logs/
 .*
 */mnist
 
+
 # add dvc
 !.dvc/config
 !.dvcignore
+*data*
+!*data/*.dvc
