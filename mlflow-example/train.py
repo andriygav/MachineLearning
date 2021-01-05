@@ -1,12 +1,15 @@
 import pickle
 import argparse
 
+import dvc.api
 import mlflow
 from mlflow import log_metric, log_param, log_artifacts
 
+import pandas
 from sklearn.datasets import make_classification
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -15,13 +18,15 @@ if __name__ == "__main__":
     namespace = parser.parse_args()
     argv = vars(namespace)
 
+    with dvc.api.open(
+        'mlflow-example/data/dataset.csv',
+        repo='https://github.com/andriygav/MachineLearning'
+        ) as f:
+    	dataset = pd.read_csv(f)
+
     with mlflow.start_run():
 
-        X, Y = make_classification(n_samples=400, n_features=2, 
-                                   n_informative=2, n_classes=2, 
-                                   n_redundant=0,
-                                   n_clusters_per_class=1,
-                                   random_state=0)
+        X, Y = dataset.values[:,:2], dataset.values[:,2]
         X_train, X_test, Y_train, Y_test = train_test_split(
             X, Y, test_size=100, random_state=0)
 
