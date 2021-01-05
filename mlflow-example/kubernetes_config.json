@@ -1,4 +1,4 @@
 {
     "kube-job-template-path": "kubernetes_job_template.yaml",
-    "repository-uri": "andriygav/ap-res-docker-train"
+    "repository-uri": "andriygav/mlflow-example-docker"
 }
