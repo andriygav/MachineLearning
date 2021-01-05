@@ -121,6 +121,7 @@ Description
     AWS_DEFAULT_REGION: "<s3 region>"
     AWS_SECRET_ACCESS_KEY: "<secret access key to s3 where mlflow store artifacts>"
   
+  # дальше добавить это в кубер
   sudo microk8s.kubectl apply -f credentials.yaml 
 
 Теперь кластер ``microk8s`` полностью готов к работе.
