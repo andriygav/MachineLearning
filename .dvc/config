@@ -1,2 +1,5 @@
 [core]
     no_scm = True
+    remote = storage
+['remote "storage"']
+    url = s3://anriygav-mlflow-example/dvc
