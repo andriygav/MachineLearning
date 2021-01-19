@@ -151,7 +151,12 @@ Description
 .. code-block:: bash
 
   export MLFLOW_TRACKING_URI=http://<ip mlflow server>:5000
-  mlflow run . --experiment-name <project name> -P C=0.5 -P penalty=l2 --backend kubernetes --backend-config kubernetes_config.json
+  mlflow run . \
+    --experiment-name <project name> \
+    -P C=0.5 \
+    -P penalty=l2 \
+    --backend kubernetes \
+    --backend-config kubernetes_config.json
   
   
 После запуск начнеться сборка докера и поставка его в docker hub, после чего будет дан запрос на cluster. ВАЖНО! Операция является блокирующей (ждет пока на кластере завершиться запрошенная задача), поэтому рекомендуется использовать nohup.
