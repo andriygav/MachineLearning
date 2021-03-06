@@ -1,0 +1,20 @@
+syntax = "proto3";
+package processing.v1;
+
+
+// Служба извлечения
+service ProcessorService {
+    // Запрос на получение
+    rpc ProcessData(Request) returns (Response);
+}
+
+// Запрос сервису
+message Request {
+    string Text = 1;
+}
+
+
+// Ответ сервиса
+message Response {
+    repeated string Tokens = 1;
+}

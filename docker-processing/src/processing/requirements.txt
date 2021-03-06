@@ -1,0 +1,9 @@
+configobj==5.0.6
+grpcio==1.36.1
+grpcio-reflection==1.36.1
+grpcio-tools==1.36.1
+protobuf==3.15.5
+six==1.15.0
+pymorphy2==0.8
+nltk==3.5
+prometheus-client==0.8.0
