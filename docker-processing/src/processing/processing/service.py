@@ -42,17 +42,17 @@ class ProcessorService(ProcessorServiceServicer):
     def ProcessData(self, request, context):
         FOUND.inc()
         text = request.Text
-        logging.warning('request data: size={}'.format(len(text)))
+        logging.info('request data: size={}'.format(len(text)))
         
         start_time = time.time()
         try:
             result = run_prototype(text)
 
-            logging.warning('result: size={}'.format(str(result)))
+            logging.info('result: size={}'.format(len(result)))
          
             response = Response(Tokens=result)
 
-            logging.warning('response data')
+            logging.info('response')
             CHECK.inc()
         except:
             ERROR.inc()
@@ -60,7 +60,10 @@ class ProcessorService(ProcessorServiceServicer):
 
 
 def serve(config):
-    logging.warning('loading model')
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s.%(msecs)03d %(levelname)s: %(funcName)s: %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S')
+    logging.info('loading model')
     init_prototype(config)
     start_http_server(int(config['service']['prom port']))
 
@@ -82,7 +85,7 @@ def serve(config):
     server.add_insecure_port(config['service']['port'])
 
     server.start()
-    logging.warning("Server running on port {}".format(config['service']['port']))
+    logging.info("Server running on port {}".format(config['service']['port']))
 
     try:
         while True:
