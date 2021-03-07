@@ -25,6 +25,11 @@ spec:
         - containerPort: 9999
           name: metrics
           protocol: TCP
+        resources:
+          limits:
+            memory: 128Mi
+          requests:
+            memory: 64Mi
 ---
 apiVersion: v1
 kind: Service
