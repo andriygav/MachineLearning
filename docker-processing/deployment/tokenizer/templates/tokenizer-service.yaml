@@ -1,0 +1,46 @@
+{{- if .Values.service.ClusterIP.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tokenizer.fullname" . }}-cluster
+  labels:
+    {{- include "tokenizer.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  {{- if .Values.service.ClusterIP.grpc.enabled }}
+  - name: {{ .Values.ports.grpc.name }}
+    port: {{ .Values.ports.grpc.port }}
+    protocol: TCP
+  {{- end }}
+  {{- if .Values.service.ClusterIP.metrics.enabled }}
+  - name: {{ .Values.ports.metrics.name }}
+    port: {{ .Values.ports.metrics.port }}
+    protocol: TCP
+  {{- end }}
+  selector:
+    {{- include "tokenizer.selectorLabels" . | nindent 4 }}
+{{- end }}
+{{- if .Values.service.NodePort.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tokenizer.fullname" . }}-np
+spec:
+  type: NodePort
+  ports:
+  {{- if .Values.service.NodePort.grpc.enabled }}
+  - name: {{ .Values.ports.grpc.name }}
+    port: {{ .Values.ports.grpc.port }}
+    protocol: TCP
+  {{- end }}
+  {{- if .Values.service.NodePort.metrics.enabled }}
+  - name: {{ .Values.ports.metrics.name }}
+    port: {{ .Values.ports.metrics.port }}
+    protocol: TCP
+  {{- end }}
+  selector:
+    {{- include "tokenizer.selectorLabels" . | nindent 4 }}
+{{- end }}

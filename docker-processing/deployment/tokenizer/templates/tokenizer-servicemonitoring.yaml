@@ -1,0 +1,16 @@
+{{- if .Values.monitoring.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: tokenizer
+  labels:
+    {{- include "tokenizer.prometheusLabels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "tokenizer.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - port: {{ .Values.ports.metrics.name }}
+    interval: {{ .Values.monitoring.interval }}
+{{- end }}
