@@ -75,7 +75,8 @@ def serve(config):
         options=[('grpc.max_send_message_length', MAX_MSG_LENGTH),
                  ('grpc.max_message_length', MAX_MSG_LENGTH),
                  ('grpc.max_receive_message_length', MAX_MSG_LENGTH)],
-        interceptors=(PromServerInterceptor(enable_handling_time_histogram=True),) 
+        interceptors=(PromServerInterceptor(
+        	enable_handling_time_histogram=True, legacy=True),) 
     )
     add_ProcessorServiceServicer_to_server(ProcessorService(), server)
     SERVICE_NAMES = (
