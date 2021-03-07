@@ -9,7 +9,7 @@ from grpc_reflection.v1alpha import reflection
 
 from configobj import ConfigObj
 from prometheus_client import start_http_server, Summary, Counter
-from python_grpc_prometheus.prometheus_server_interceptor import PromServerInterceptor
+from py_grpc_prometheus.prometheus_client_interceptor import PromClientInterceptor
 
 from processing_protos.processing_pb2 import Request, Response, DESCRIPTOR
 from processing_protos.processing_pb2_grpc import (ProcessorServiceStub, 
@@ -75,7 +75,7 @@ def serve(config):
         options=[('grpc.max_send_message_length', MAX_MSG_LENGTH),
                  ('grpc.max_message_length', MAX_MSG_LENGTH),
                  ('grpc.max_receive_message_length', MAX_MSG_LENGTH)],
-         interceptors=(PromServerInterceptor(),) 
+        interceptors=(PromServerInterceptor(),) 
     )
     add_ProcessorServiceServicer_to_server(ProcessorService(), server)
     SERVICE_NAMES = (
