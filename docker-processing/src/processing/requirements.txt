@@ -7,3 +7,4 @@ six==1.15.0
 pymorphy2==0.8
 nltk==3.5
 prometheus-client==0.8.0
+python-grpc-prometheus==0.2.0

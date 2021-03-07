@@ -9,6 +9,7 @@ from grpc_reflection.v1alpha import reflection
 
 from configobj import ConfigObj
 from prometheus_client import start_http_server, Summary, Counter
+from python_grpc_prometheus.prometheus_server_interceptor import PromServerInterceptor
 
 from processing_protos.processing_pb2 import Request, Response, DESCRIPTOR
 from processing_protos.processing_pb2_grpc import (ProcessorServiceStub, 
@@ -65,15 +66,16 @@ def serve(config):
                         datefmt='%Y-%m-%d %H:%M:%S')
     logging.info('loading model')
     init_prototype(config)
-    start_http_server(int(config['service']['prom port']))
+    
 
     server = grpc.server(
         futures.ThreadPoolExecutor(
-            max_workers=int(config['service']['max workers'])
+            max_workers=int(config['service']['max workers']),
         ),
         options=[('grpc.max_send_message_length', MAX_MSG_LENGTH),
                  ('grpc.max_message_length', MAX_MSG_LENGTH),
-                 ('grpc.max_receive_message_length', MAX_MSG_LENGTH)]
+                 ('grpc.max_receive_message_length', MAX_MSG_LENGTH)],
+         interceptors=(PromServerInterceptor(),) 
     )
     add_ProcessorServiceServicer_to_server(ProcessorService(), server)
     SERVICE_NAMES = (
@@ -84,6 +86,7 @@ def serve(config):
     reflection.enable_server_reflection(SERVICE_NAMES, server)
     server.add_insecure_port(config['service']['port'])
 
+    start_http_server(int(config['service']['prom port']))
     server.start()
     logging.info("Server running on port {}".format(config['service']['port']))
 
