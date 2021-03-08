@@ -1,0 +1,18 @@
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "tokenizer.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "tokenizer.fullname" . }}
+  minReplicas: {{ .Values.hpa.minReplicas }}
+  maxReplicas: {{ .Values.hpa.maxReplicas }}
+  metrics:
+  - type: Pods
+    pods:
+      metricName: {{ .Values.hpa.metricName }}
+      targetAverageValue: {{ .Values.hpa.targetAverageValue }}

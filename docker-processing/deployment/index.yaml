@@ -3,12 +3,12 @@ entries:
   tokenizer:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-03-08T02:09:57.77384+03:00"
-    description: A Helm chart for Kubernetes
-    digest: cc48ea0bd86943096891ccb87253e09a5fc6c95b7b761a59e7cafc77e4f072d2
+    created: "2021-03-08T08:19:32.533466+03:00"
+    description: Text processing worker.
+    digest: 0d77a5d72a8e385b819b3413a73a472a58cbb46e68ebdbb71232cf5c5bb7f8d4
     name: tokenizer
     type: application
     urls:
     - tokenizer-0.1.0.tgz
     version: 0.1.0
-generated: "2021-03-08T02:09:57.767747+03:00"
+generated: "2021-03-08T08:19:32.527424+03:00"

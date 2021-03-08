@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "tokenizer.fullname" . }}-worker
+  name: {{ include "tokenizer.fullname" . }}
   labels:
     {{- include "tokenizer.labels" . | nindent 4 }}
 spec:
