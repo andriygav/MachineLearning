@@ -5,7 +5,7 @@ Instalation
 
 .. code-block:: bash
 
-    helm repo add tokenizer helm repo add tokenizer git+https://github.com/andriygav/MachineLearning@docker-processing/deployment
+    helm repo add tokenizer git+https://github.com/andriygav/MachineLearning@docker-processing/deployment
     helm repo update
     helm search repo tokenizer
     helm install tokenizer tokenizer/tokenizer -n namespace
