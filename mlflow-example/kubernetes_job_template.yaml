@@ -2,17 +2,24 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "{replaced with MLflow Project name}"
-  namespace: mlflow
+  namespace: res-mlflow
 spec:
   ttlSecondsAfterFinished: 100
   backoffLimit: 0
   template:
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: grabovoy
+      tolerations:
+        - operator: Exists
+          effect: NoExecute
+        - operator: Exists
+          effect: NoSchedule
       containers:
       - name: "{replaced with MLflow Project name}"
         image: "{replaced with URI of Docker image created during Project execution}"
         command: ["{replaced with MLflow Project entry point command}"]
-        env: [{'name': 'AWS_ACCESS_KEY_ID', 'valueFrom': {'configMapKeyRef': {'name': 'credentials', 'key': 'AWS_ACCESS_KEY_ID'}}}, {'name': 'AWS_SECRET_ACCESS_KEY', 'valueFrom': {'configMapKeyRef': {'name': 'credentials', 'key': 'AWS_SECRET_ACCESS_KEY'}}}, {'name': 'AWS_DEFAULT_REGION', 'valueFrom': {'configMapKeyRef': {'name': 'credentials', 'key': 'AWS_DEFAULT_REGION'}}}]
+        env: [{'name': 'AWS_ACCESS_KEY_ID', 'valueFrom': {'secretKeyRef': {'name': 'secrets-s3', 'key': 'AWS_ACCESS_KEY_ID'}}}, {'name': 'AWS_SECRET_ACCESS_KEY', 'valueFrom': {'secretKeyRef': {'name': 'secrets-s3', 'key': 'AWS_SECRET_ACCESS_KEY'}}}, {'name': 'AWS_DEFAULT_REGION', 'valueFrom': {'secretKeyRef': {'name': 'secrets-s3', 'key': 'AWS_DEFAULT_REGION'}}}]
       resources:
         limits:
           memory: 512Mi

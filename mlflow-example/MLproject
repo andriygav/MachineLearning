@@ -1,4 +1,4 @@
-name: example
+name: testing
 
 docker_env:
   image: andriygav/mlflow-example-docker:base

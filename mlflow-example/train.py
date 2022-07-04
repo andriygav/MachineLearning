@@ -6,6 +6,7 @@ import mlflow
 from mlflow import log_metric, log_param, log_artifacts
 
 import pandas as pd
+import numpy
 from sklearn.datasets import make_classification
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -18,11 +19,8 @@ if __name__ == "__main__":
     namespace = parser.parse_args()
     argv = vars(namespace)
 
-    with dvc.api.open(
-        'mlflow-example/data/dataset.csv',
-        repo='https://github.com/andriygav/MachineLearning'
-        ) as f:
-        dataset = pd.read_csv(f)
+    rs = numpy.random.RandomState()
+    dataset = pd.DataFrame(numpy.hstack([rs.randn(1000, 2), rs.randint(0, 2, [1000, 1])]))
 
     with mlflow.start_run():
 
